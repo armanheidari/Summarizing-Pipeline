@@ -1,0 +1,21 @@
+While fine-tuning is ostensibly a technique used in model training, it’s a process distinct from what is conventionally called “training.” For the sake of disambiguation, data scientists typically refer to the latter as pre-training in this context.
+
+At the onset of training (or, in this context, pre-training), the model has not yet “learned” anything. Training begins with a random initialization of model parameters—the varying weights and biases applied to the mathematical operations occurring at each node in the neural network.
+
+Training occurs iteratively in two phases: in a forward pass, the model makes predictions for a batch of sample inputs from the training dataset, and a loss function measures the difference (or loss) between the model’s predictions for each input and the “correct” answers (or ground truth); during backpropagation, an optimization algorithm—typically gradient descent—is used to adjust model weights across the network to reduce loss. These adjustments to model weights are how the model “learns.” The process is repeated across multiple training epochs until the model is deemed to be sufficiently trained.
+
+Conventional supervised learning, which is typically used to pre-train models for computer vision tasks like image classification, object detection or image segmentation, uses labeled data: labels (or annotations) provide both the range of possible answers and the ground truth output for each sample.
+
+LLMs are typically pre-trained through self-supervised learning (SSL), in which models learn through pretext tasks that are designed to derive ground truth from the inherent structure of unlabeled data. These pretext tasks impart knowledge useful for downstream tasks. They typically take one of two approaches:
+
+Self-prediction: masking some part of the original input and tasking the model with reconstructing it. This is the dominant mode of training for LLMs.
+
+Contrastive learning: training models to learn similar embeddings for related inputs and different embeddings for unrelated inputs. This is used prominently in computer vision models designed for few-shot or zero-shot learning, like Contrasting Language-Image Pretraining (CLIP).
+
+SSL thus allows for the use of massively large datasets in training without the burden of having to annotate millions or billions of data points. This saves a tremendous amount of labor, but nevertheless requires huge computational resources.
+
+Conversely, fine-tuning entails techniques to further train a model whose weights have already been updated through prior training. Using the base model’s previous knowledge as a starting point, fine-tuning tailors the model by training it on a smaller, task-specific dataset.
+
+While that task-specific dataset could theoretically have been used for the initial training, training a large model from scratch on a small dataset risks overfitting: the model might learn to perform well on the training examples, but generalize poorly to new data. This would render the model ill-suited to its given task and defeat the purpose of model training.
+
+Fine-tuning thus provides the best of both worlds: leveraging the broad knowledge and stability gained from pre-training on a massive set of data and honing the model’s understanding of more detailed, specific concepts. Given the increasing prowess of open source foundation models, the benefits can often be enjoyed without any of the financial, computational or logistical burden of pre-training.

@@ -1,0 +1,4 @@
+path_handler==0.1
+vosk==0.3.45
+openai==1.35.7
+together==1.2.2
