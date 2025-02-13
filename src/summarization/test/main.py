@@ -11,8 +11,8 @@ from src.summarization.factory import SummarizerFactory
 if __name__ == "__main__":
     summerizer = SummarizerFactory.create(SUMMERIZER_CONFIG_DEFAULT)
     
-    with open(str(path_manager.get_base_directory() / "samples/fine_tuning.txt"), mode="r", encoding="UTF-8") as f:
+    with open(str(path_manager.get_base_directory() / "transcriptions/like.txt"), mode="r", encoding="UTF-8") as f:
         text = f.read()
     
-    with open("results.md", mode="w") as f:
+    with open("results.md", mode="w", encoding="UTF-8") as f:
         f.write(summerizer.summarize(text))
