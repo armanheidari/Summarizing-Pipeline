@@ -13,12 +13,9 @@ from path_handler import PathManager
 path_manager = PathManager()
 sys.path.append(str(path_manager.get_base_directory()))
 
+from src.config.config import AudioFormat
 from src.convertion.registry import AudioConvertorRegistry, VideoToAudioRegistry
 from src.utils import Utility
-
-
-class AudioFormat(Enum):
-    WAV = "wav"
 
 
 class AudioConvertor(ABC):
@@ -111,9 +108,11 @@ class VideoToWavConvertor(VideoToAudio):
 
         if process.returncode != 0:
             raise Exception(f"FFmpeg error: {stderr.decode()}")
+        
+        return output_path
     
     def convert(self, file_path: str):
         file_name = Utility.get_file_name(file_path)
         self._validate_audio(file_path)
         
-        self._convert(file_path, file_name)
+        return self._convert(file_path, file_name)

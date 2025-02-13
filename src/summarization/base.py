@@ -7,6 +7,7 @@ sys.path.append(str(path_manager.get_base_directory()))
 
 from src.config.config import SummerizerConfig
 
+
 class Summarizer:
     """A class for summarizing text using a language-specific prompt and a client API."""
     

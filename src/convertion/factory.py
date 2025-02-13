@@ -5,7 +5,8 @@ from path_handler import PathManager
 path_manager = PathManager()
 sys.path.append(str(path_manager.get_base_directory()))
 
-from src.convertion.base import AudioConvertor, AudioFormat, VideoToAudio
+from src.config.config import AudioFormat
+from src.convertion.base import AudioConvertor, VideoToAudio
 from src.convertion.registry import AudioConvertorRegistry, VideoToAudioRegistry
 
 

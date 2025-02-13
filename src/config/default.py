@@ -7,11 +7,13 @@ from path_handler import PathManager
 path_manager = PathManager()
 sys.path.append(str(path_manager.get_base_directory()))
 
-from src.config.config import SummerizerConfig
-from src.clients.base import Client
-from src.clients.factory import ClientFactory
-from src.prompts.base import Prompt
+from src.config.config import (
+    SummerizerConfig,
+    Prompt,
+    Client
+)
 from src.prompts.factory import PromptFactory
+from src.clients.factory import ClientFactory
 
 load_dotenv(str(path_manager.get_base_directory() / ".env"))
 

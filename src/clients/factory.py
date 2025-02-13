@@ -9,9 +9,10 @@ from openai import OpenAI
 path_manager = PathManager()
 sys.path.append(str(path_manager.get_base_directory()))
 
-from src.clients.base import Client
+from src.config.config import Client
 
 load_dotenv(str(path_manager.get_base_directory() / ".env"))
+
 
 class ClientFactory:
     @classmethod

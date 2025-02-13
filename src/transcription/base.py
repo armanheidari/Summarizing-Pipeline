@@ -15,16 +15,10 @@ from path_handler import PathManager
 path_manager = PathManager()
 sys.path.append(str(path_manager.get_base_directory()))
 
+from src.utils import Utility
+from src.config.config import Provider
 from src.transcription.registry import SpeechToTextRegistry
 from src.transcription.strategy import SpeechToTextStrategy, VoskStrategy
-from src.utils import Utility
-
-class Language(Enum):
-    ENGLISH = "English"
-    PERSIAN = "Persian"
-
-class Provider(Enum):
-    VOSK = "vosk"
 
 
 class SpeechToText(ABC):
@@ -89,7 +83,7 @@ class VoskTranscriber(SpeechToText):
         with open(output_path, mode="w", encoding="UTF-8") as f:
             f.write(transcription)
         
-        return transcription
+        return output_path, transcription
     
     def transcribe(self, file_path: str) -> str:
         file_name = Utility.get_file_name(file_path)

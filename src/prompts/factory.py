@@ -6,8 +6,8 @@ from path_handler import PathManager
 path_manager = PathManager()
 sys.path.append(str(path_manager.get_base_directory()))
 
-from src.prompts.base import Prompt
-from src.prompts.prompts import THEMATIC, PRIORITY
+from src.config.config import Prompt
+from src.prompts.base import THEMATIC, PRIORITY
 
 load_dotenv(str(path_manager.get_base_directory() / ".env"))
 

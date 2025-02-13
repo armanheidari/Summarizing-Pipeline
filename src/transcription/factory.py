@@ -5,7 +5,8 @@ from path_handler import PathManager
 path_manager = PathManager()
 sys.path.append(str(path_manager.get_base_directory()))
 
-from src.transcription.base import SpeechToText, Language, Provider
+from src.config.config import Language, Provider
+from src.transcription.base import SpeechToText
 from src.transcription.registry import SpeechToTextRegistry
 
 class SpeechToTextFactory:
