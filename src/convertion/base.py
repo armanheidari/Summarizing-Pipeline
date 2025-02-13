@@ -1,16 +1,19 @@
 import os
+import io
 import sys
 import warnings
+import subprocess
 from enum import Enum
 from abc import ABC, abstractmethod
 
 from pydub import AudioSegment
+from moviepy import VideoFileClip
 from path_handler import PathManager
 
 path_manager = PathManager()
 sys.path.append(str(path_manager.get_base_directory()))
 
-from src.convertion.registry import AudioConvertorRegistry
+from src.convertion.registry import AudioConvertorRegistry, VideoToAudioRegistry
 from src.utils import Utility
 
 
@@ -40,8 +43,9 @@ class AudioConvertor(ABC):
     def convert(self, file_path: str) -> None:
         ...
 
-@AudioConvertorRegistry.register("wav")
-class ToWavConvertor(AudioConvertor):
+
+@AudioConvertorRegistry.register(AudioFormat.WAV.value)
+class AudioToWavConvertor(AudioConvertor):
     def _convert(self, audio: AudioSegment, file_name: str) -> None:
         if audio.channels != 1:
             warnings.warn("The audio file is not mono. Converting to mono...", UserWarning)
@@ -69,15 +73,15 @@ class VideoToAudio(ABC):
     def __init__(self):
         ...
     
-    def _validate_audio(self, file_path: str) -> AudioSegment:
+    def _validate_audio(self, file_path: str) -> None:
         if not os.path.exists(file_path):
             raise FileNotFoundError("The file does not exist!")
         try:
-            audio = AudioSegment.from_file(file_path)
+            video = VideoFileClip(file_path)
         except Exception as e:
-            raise ValueError(f"The file is not a valid audio file: {e}")
+            raise ValueError(f"The file is not a valid video file: {e}")
 
-        return audio
+        video.close()
     
     @abstractmethod
     def _convert(self) -> None:
@@ -86,3 +90,30 @@ class VideoToAudio(ABC):
     @abstractmethod
     def convert(self, file_path: str) -> None:
         ...
+
+
+@VideoToAudioRegistry.register(AudioFormat.WAV.value)
+class VideoToWavConvertor(VideoToAudio):
+    def _convert(self, file_path: str, file_name: str) -> None:
+        output_path = str(path_manager.get_base_directory() / f"audios/{file_name}.wav")
+        
+        ffmpeg_command = [
+            "ffmpeg",
+            "-i", file_path,
+            "-ac", "1",
+            "-ar", "16000",
+            "-acodec", "pcm_s16le",
+            output_path          
+        ]
+        
+        process = subprocess.Popen(ffmpeg_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+
+        if process.returncode != 0:
+            raise Exception(f"FFmpeg error: {stderr.decode()}")
+    
+    def convert(self, file_path: str):
+        file_name = Utility.get_file_name(file_path)
+        self._validate_audio(file_path)
+        
+        self._convert(file_path, file_name)
