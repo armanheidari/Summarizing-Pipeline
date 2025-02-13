@@ -17,6 +17,7 @@ sys.path.append(str(path_manager.get_base_directory()))
 
 from src.transcription.registry import SpeechToTextRegistry
 from src.transcription.strategy import SpeechToTextStrategy, VoskStrategy
+from src.utils import Utility
 
 class Language(Enum):
     ENGLISH = "English"
@@ -38,7 +39,7 @@ class SpeechToText(ABC):
     def _validate_audio(self, file_path: str) -> wave.Wave_read:
         if not os.path.exists(file_path):
             raise FileNotFoundError("The audio file does not exist!")
-        elif self._get_file_format(file_path) != "wav":
+        elif Utility.get_file_format(file_path) != "wav":
             raise ValueError(f"The audio file is not a .wav audio!")
         
         wave_file = wave.open(file_path, "rb")
@@ -53,12 +54,6 @@ class SpeechToText(ABC):
             warnings.warn(f"The audio file sample rate is not 8000 Hz or 16000 Hz. ({wave_file.getframerate()}) Transcription accuracy may be affected.", UserWarning)
 
         return wave_file
-    
-    def _get_file_name(self, file_path: str) -> str:
-        return os.path.splitext(os.path.basename(file_path))[0]
-    
-    def _get_file_format(self, file_path: str) -> str:
-        return os.path.splitext(os.path.basename(file_path))[1][1:]
     
     @abstractmethod
     def transcribe(self):
@@ -97,7 +92,7 @@ class VoskTranscriber(SpeechToText):
         return transcription
     
     def transcribe(self, file_path: str) -> str:
-        file_name = self._get_file_name(file_path)
+        file_name = Utility.get_file_name(file_path)
         wave_file = self._validate_audio(file_path)
         
         return self._transcribe(wave_file, file_name)
