@@ -1,6 +1,5 @@
 import os
 import sys
-from dotenv import load_dotenv
 
 from path_handler import PathManager
 
@@ -9,16 +8,28 @@ sys.path.append(str(path_manager.get_base_directory()))
 
 from src.config.config import (
     SummerizerConfig,
+    PipelineConfig,
     Prompt,
-    Client
+    Client,
+    AudioFormat,
+    Language,
+    Provider,
+    PipelineType
 )
 from src.prompts.factory import PromptFactory
 from src.clients.factory import ClientFactory
-
-load_dotenv(str(path_manager.get_base_directory() / ".env"))
+from src.llm.factory import LLMFactory
 
 SUMMERIZER_CONFIG_DEFAULT = SummerizerConfig(
     prompt=PromptFactory.create(Prompt.THEMATIC_SUMMARIZER),
     client=ClientFactory.create(Client.OPENROUTER),
-    model="google/gemini-2.0-pro-exp-02-05:free",
+    model=LLMFactory.create(Client.OPENROUTER)[0]
+)
+
+PIPELINE_CONFIG_DEAFULT = PipelineConfig(
+    summerizer_config=SUMMERIZER_CONFIG_DEFAULT,
+    audio_format=AudioFormat.WAV,
+    provider=Provider.VOSK,
+    language=Language.ENGLISH,
+    pipeline_type=PipelineType.TEXT
 )

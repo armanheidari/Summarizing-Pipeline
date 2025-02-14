@@ -13,13 +13,13 @@ class Prompt(Enum):
     PRIORITY_SUMMARIZER = "Priority"
 
 
-class AudioFormat(Enum):
-    WAV = "wav"
-
-
 class Client(Enum):
     TOGETHER = "Together"
     OPENROUTER = "OpenRouter"
+
+
+class AudioFormat(Enum):
+    WAV = "wav"
 
 
 class Language(Enum):
@@ -31,8 +31,23 @@ class Provider(Enum):
     VOSK = "vosk"
 
 
+class PipelineType(Enum):
+    VIDEO = "Video"
+    AUDIO = "Audio"
+    TEXT = "Text"
+
+
 @dataclass
 class SummerizerConfig:
     prompt: Prompt
     client: Client
     model: str
+
+
+@dataclass
+class PipelineConfig:
+    summerizer_config: SummerizerConfig
+    audio_format: AudioFormat
+    provider: Provider
+    language: Language
+    pipeline_type: PipelineType 
