@@ -1,3 +1,4 @@
+import os
 import sys
 
 from path_handler import PathManager
@@ -24,13 +25,17 @@ class Summarizer:
         self.client = config.client
         self.model = config.model
     
-    def summarize(self, text: str) -> str:
+    def run(self, text: str) -> str:
         """
         Summarize the given text using the configured prompt and model.
 
         :param text: The text to summarize.
         :return str: The summarized text.
         """
+        if os.path.exists(text):
+            with open(text, mode="r", encoding="UTF-8") as f:
+                text = f.read()
+        
         response = self.client.chat.completions.create(
             messages= [
                 {

@@ -33,17 +33,17 @@ class AudioConvertor(ABC):
         return audio
     
     @abstractmethod
-    def _convert(self) -> None:
+    def _convert(self) -> str:
         ...
     
     @abstractmethod
-    def convert(self, file_path: str) -> None:
+    def run(self, file_path: str) -> str:
         ...
 
 
 @AudioConvertorRegistry.register(AudioFormat.WAV.value)
 class AudioToWavConvertor(AudioConvertor):
-    def _convert(self, audio: AudioSegment, file_name: str) -> None:
+    def _convert(self, audio: AudioSegment, file_name: str) -> str:
         if audio.channels != 1:
             warnings.warn("The audio file is not mono. Converting to mono...", UserWarning)
             audio = audio.set_channels(1)
@@ -58,19 +58,21 @@ class AudioToWavConvertor(AudioConvertor):
         
         output_path = str(path_manager.get_base_directory() / f"audios/{file_name}.wav")
         audio.export(output_path, format="wav")
+        
+        return output_path
     
-    def convert(self, file_path: str):
+    def run(self, file_path: str) -> str:
         file_name = Utility.get_file_name(file_path)
         audio = self._validate_audio(file_path)
         
-        self._convert(audio, file_name)
+        return self._convert(audio, file_name)
 
 
 class VideoToAudio(ABC):
     def __init__(self):
         ...
     
-    def _validate_audio(self, file_path: str) -> None:
+    def _validate_video(self, file_path: str) -> None:
         if not os.path.exists(file_path):
             raise FileNotFoundError("The file does not exist!")
         try:
@@ -81,17 +83,17 @@ class VideoToAudio(ABC):
         video.close()
     
     @abstractmethod
-    def _convert(self) -> None:
+    def _convert(self) -> str:
         ...
     
     @abstractmethod
-    def convert(self, file_path: str) -> None:
+    def run(self, file_path: str) -> str:
         ...
 
 
 @VideoToAudioRegistry.register(AudioFormat.WAV.value)
 class VideoToWavConvertor(VideoToAudio):
-    def _convert(self, file_path: str, file_name: str) -> None:
+    def _convert(self, file_path: str, file_name: str) -> str:
         output_path = str(path_manager.get_base_directory() / f"audios/{file_name}.wav")
         
         ffmpeg_command = [
@@ -111,8 +113,8 @@ class VideoToWavConvertor(VideoToAudio):
         
         return output_path
     
-    def convert(self, file_path: str):
+    def run(self, file_path: str) -> str:
         file_name = Utility.get_file_name(file_path)
-        self._validate_audio(file_path)
+        self._validate_video(file_path)
         
         return self._convert(file_path, file_name)

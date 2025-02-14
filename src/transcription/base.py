@@ -50,7 +50,7 @@ class SpeechToText(ABC):
         return wave_file
     
     @abstractmethod
-    def transcribe(self):
+    def run(self):
         raise NotImplementedError("transcribe() is not implemented!")
 
 
@@ -83,9 +83,9 @@ class VoskTranscriber(SpeechToText):
         with open(output_path, mode="w", encoding="UTF-8") as f:
             f.write(transcription)
         
-        return output_path, transcription
+        return transcription
     
-    def transcribe(self, file_path: str) -> str:
+    def run(self, file_path: str) -> str:
         file_name = Utility.get_file_name(file_path)
         wave_file = self._validate_audio(file_path)
         
