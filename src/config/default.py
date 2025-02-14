@@ -31,5 +31,5 @@ PIPELINE_CONFIG_DEAFULT = PipelineConfig(
     audio_format=AudioFormat.WAV,
     provider=Provider.VOSK,
     language=Language.ENGLISH,
-    pipeline_type=PipelineType.TEXT
+    pipeline_type=PipelineType.VIDEO
 )
