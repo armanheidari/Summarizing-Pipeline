@@ -42,11 +42,25 @@ app.mount("/ui", StaticFiles(directory="ui"), name="ui")
 
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
+    """
+    Serves the main HTML page for the web interface.
+
+    Returns:
+        FileResponse: The HTML file for the web interface.
+    """
     # return FileResponse("src/ui/base.html") # ! Debugger
     return FileResponse("ui/base.html")
 
 def detect_pipeline_type(file_extension: Optional[str]) -> PipelineType:
-    """Detect the pipeline type based on the file's extension."""
+    """
+    Detects the pipeline type based on the file's extension.
+
+    Args:
+        file_extension (Optional[str]): The file extension (e.g., "mp4", "wav", "txt").
+
+    Returns:
+        PipelineType: The type of pipeline (e.g., VIDEO, AUDIO, TEXT).
+    """
     if file_extension:
         file_extension = file_extension.lower()
         if file_extension in {"mp4", "mkv", "avi", "mov"}:
@@ -69,6 +83,24 @@ async def summarize(
     client: str = Form(...),
     model: str = Form(...),
 ):
+    """
+    Handles the summarization request.
+
+    Args:
+        file (Optional[UploadFile]): The uploaded file (video, audio, or text).
+        text (Optional[str]): The input text (if no file is uploaded).
+        language (str): The language of the input.
+        audio_format (str): The audio format for conversion.
+        prompt (str): The summarization prompt type.
+        client (str): The LLM client to use.
+        model (str): The model to use for summarization.
+
+    Returns:
+        dict: A dictionary containing the summarized text.
+
+    Raises:
+        HTTPException: If no file or text is provided, or if an error occurs during processing.
+    """
     try:
         if not file and not text:
             raise HTTPException(status_code=400, detail="No file or text provided")
