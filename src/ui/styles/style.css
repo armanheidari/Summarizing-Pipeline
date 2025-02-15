@@ -1,0 +1,301 @@
+/* General Reset */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+		sans-serif;
+	line-height: 1.6;
+	background-color: #1e1e2f;
+	color: #e0e0e0;
+	padding: 20px;
+}
+
+header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+header h1 {
+	font-size: 2.5rem;
+	color: #ffffff;
+}
+
+header p {
+	font-size: 1.1rem;
+	color: #a0a0a0;
+}
+
+main {
+	max-width: 800px;
+	margin: 0 auto;
+	background-color: #2a2a40;
+	padding: 20px;
+	border-radius: 12px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+footer {
+	text-align: center;
+	margin-top: 20px;
+	font-size: 0.9rem;
+	color: #a0a0a0;
+}
+
+/* - File Input Section */
+#file-input {
+	margin-bottom: 20px;
+}
+
+#drag-drop-area {
+	border: 2px dashed #4a4a6a;
+	border-radius: 8px;
+	padding: 40px;
+	text-align: center;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	background-color: #34344a;
+}
+
+#drag-drop-area:hover {
+	background-color: #3a3a50;
+}
+
+#drag-drop-area p {
+	margin: 0;
+	font-size: 1rem;
+	color: #a0a0a0;
+}
+
+#file-upload {
+	display: none;
+}
+
+#file-upload-label {
+	display: inline-block;
+	background-color: #6c5ce7;
+	color: #ffffff;
+	padding: 8px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: background-color 0.3s ease;
+}
+
+#file-upload-label:hover {
+	background-color: #5a4acb;
+}
+
+#text-input {
+	width: 100%;
+	height: 100px;
+	margin-top: 10px;
+	padding: 10px;
+	border: 1px solid #4a4a6a;
+	border-radius: 4px;
+	font-size: 1rem;
+	background-color: #2a2a40;
+	color: #e0e0e0;
+	resize: vertical;
+}
+
+#text-input::placeholder {
+	color: #6a6a8a;
+}
+
+/* - Configuration Panel */
+#config-panel {
+	margin-bottom: 20px;
+}
+
+#toggle-config {
+	background-color: #6c5ce7;
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 1rem;
+	transition: background-color 0.3s ease;
+}
+
+#toggle-config:hover {
+	background-color: #5a4acb;
+}
+
+#config-options {
+	margin-top: 10px;
+	padding: 15px;
+	border: 1px solid #4a4a6a;
+	border-radius: 4px;
+	background-color: #34344a;
+}
+
+#config-options.hidden {
+	display: none;
+}
+
+.config-option {
+	margin-bottom: 15px;
+}
+
+.config-option label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+	color: #e0e0e0;
+}
+
+.config-option select {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #4a4a6a;
+	border-radius: 4px;
+	font-size: 1rem;
+	background-color: #2a2a40;
+	color: #e0e0e0;
+	cursor: pointer;
+}
+
+.config-option select:hover {
+	border-color: #6c5ce7;
+}
+
+/* - Summarize Button */
+#summarize-button {
+	width: 100%;
+	background-color: #6c5ce7;
+	color: #ffffff;
+	border: none;
+	padding: 12px;
+	border-radius: 4px;
+	font-size: 1.1rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+#summarize-button:hover {
+	background-color: #5a4acb;
+}
+
+/* - Results Section */
+#results-section {
+	margin-top: 20px;
+	padding: 20px;
+	border: 1px solid #4a4a6a;
+	border-radius: 4px;
+	background-color: #34344a;
+}
+
+#results-section.hidden {
+	display: none;
+}
+
+#results-content {
+	margin-bottom: 20px;
+	font-size: 1rem;
+	line-height: 1.6;
+	color: #e0e0e0;
+}
+
+#results-content h1,
+#results-content h2,
+#results-content h3,
+#results-content h4,
+#results-content h5,
+#results-content h6 {
+	margin-top: 1.5em;
+	margin-bottom: 0.75em;
+	color: #ffffff;
+	font-weight: 600;
+}
+
+#results-content h1 {
+	font-size: 2em;
+	border-bottom: 2px solid #6c5ce7;
+	padding-bottom: 0.3em;
+}
+
+#results-content h2 {
+	font-size: 1.75em;
+	border-bottom: 1px solid #6c5ce7;
+	padding-bottom: 0.2em;
+}
+
+#results-content h3 {
+	font-size: 1.5em;
+}
+
+#results-content p {
+	margin-bottom: 1em;
+	color: #e0e0e0;
+}
+
+#results-content ul,
+#results-content ol {
+	margin-left: 1.5em;
+	margin-bottom: 1em;
+}
+
+#results-content li {
+	margin-bottom: 0.5em;
+}
+
+#results-content code {
+	background-color: #2a2a40;
+	padding: 2px 4px;
+	border-radius: 4px;
+	font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+	color: #ff79c6;
+}
+
+#results-content pre {
+	background-color: #2a2a40;
+	padding: 10px;
+	border-radius: 4px;
+	overflow-x: auto;
+	margin-bottom: 1em;
+}
+
+#results-content pre code {
+	background-color: transparent;
+	padding: 0;
+	color: #e0e0e0;
+}
+
+#results-content blockquote {
+	border-left: 4px solid #6c5ce7;
+	padding-left: 1em;
+	margin: 1em 0;
+	color: #e0e0e0;
+}
+
+#results-content a {
+	color: #6c5ce7;
+	text-decoration: none;
+}
+
+#results-content a:hover {
+	text-decoration: underline;
+}
+
+#copy-results,
+#download-results {
+	margin-right: 10px;
+	background-color: #6c5ce7;
+	color: #ffffff;
+	border: none;
+	padding: 8px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: background-color 0.3s ease;
+}
+
+#copy-results:hover,
+#download-results:hover {
+	background-color: #5a4acb;
+}
