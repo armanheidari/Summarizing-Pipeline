@@ -15,8 +15,26 @@ from src.pipeline.base import SummarizingPipeline
 
 
 class SummarizingPipelineFactory:
+    """
+    Factory class for creating SummarizingPipeline instances.
+
+    This class constructs a pipeline based on the provided configuration, including steps for audio/video conversion, transcription, and summarization.
+
+    Methods:
+        create: Creates a SummarizingPipeline instance based on the provided configuration.
+    """
+    
     @classmethod
     def create(cls, pipeline_config: PipelineConfig) -> SummarizingPipeline:
+        """
+        Creates a SummarizingPipeline instance based on the provided configuration.
+
+        Args:
+            pipeline_config (PipelineConfig): The configuration for the pipeline, including pipeline type, audio format, provider, language, and summarizer configuration.
+
+        Returns:
+            SummarizingPipeline: A pipeline configured to process input data according to the specified configuration.
+        """
         steps = []
         
         if pipeline_config.pipeline_type.value == "Video":
