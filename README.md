@@ -184,7 +184,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ---
 
-### Acknowledgments
+## Acknowledgments
 - [Vosk](https://alphacephei.com/vosk/) for speech-to-text transcription.
 - [FastAPI](https://fastapi.tiangolo.com/) for the web framework.
 - [OpenRouter](https://openrouter.ai/) and [Together](https://www.together.ai/) for LLM integration.
