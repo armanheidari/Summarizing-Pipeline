@@ -136,6 +136,7 @@ These options can be set via the web interface or directly in the code (if you w
   ```
   summarization-pipeline/
   ├── audios/                # Converted audio files
+  ├── demo/                  # Demo Gif
   ├── models/                # Vosk models for speech-to-text
   ├── samples/               # Sample inputs for testing
   ├── transcriptions/        # Generated transcriptions
